@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./css/style.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+		/>
+		<title>Music.alley | Play Music of Your Choice</title>
+	</head>
+	<body>
+		<h1 class="header">Music Player</h1>
+
+		<div class="music-wrapper">
+			<div class="music-wrapper__img-wrap">
+				<img
+					src="./images/no-way.jpg"
+					alt="music-cover"
+					id="cover"
+					class="music-wrapper__img-wrap--img"
+				/>
+			</div>
+
+			<audio
+				id="song"
+				src="./music/Lana Condor & Anthony De la Torre - No Way (Official Video).mp3"
+			></audio>
+
+			<div class="music-wrapper__controls">
+				<button id="previous" class="music-wrapper__controls--action-btn">
+					<i class="fas fa-backward"></i>
+				</button>
+
+				<button
+					id="switch"
+					class="music-wrapper__controls--action-btn music-wrapper__controls--action-btn__switch"
+				>
+					<i class="fas fa-play"></i>
+				</button>
+
+				<button id="next" class="music-wrapper__controls--action-btn">
+					<i class="fas fa-forward"></i>
+				</button>
+			</div>
+
+			<div class="music-wrapper__details">
+				<h4 id="title" class="music-wrapper__details--title">No Way</h4>
+				<h5 id="artist" class="music-details__details--artist">
+					Anthony De La Torre Ft. Lana Condor
+				</h5>
+				<div id="progress-bar" class="music-wrapper__progress-section">
+					<div
+						id="progress"
+						class="music-wrapper__progress-section--progress"
+					></div>
+				</div>
+			</div>
+		</div>
+
+		<script src="./js/script.js"></script>
+	</body>
+</html>

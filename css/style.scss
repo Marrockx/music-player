@@ -1,0 +1,219 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import "color";
+@import "media--queries";
+
+$font-stack: "Poppins", sans-serif;
+$discSize: 110px;
+$discInnerSize: 20px;
+
+%align-center {
+	display: flex;
+	align-items: center;
+}
+
+%justify-center {
+	justify-content: center;
+}
+
+%column {
+	display: flex;
+	flex-direction: column;
+}
+
+%row {
+	display: flex;
+	flex-direction: row;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	padding: 0;
+	// outline: 0;
+	margin: 0 auto;
+	font-family: $font-stack;
+	background-image: linear-gradient(0deg, $secondary 35%, $primary 86%);
+	@extend %align-center;
+	@extend %column;
+	@extend %justify-center;
+	height: 100vh;
+}
+
+.header {
+	color: $bgColor;
+	margin-bottom: 12rem;
+
+	// @include tablet {
+	// 	padding-bottom: 4rem;
+	// }
+}
+
+.music-wrapper {
+	background-color: $bgColor;
+	color: $fontPrimaryColor;
+	transition: all 0.3s ease;
+	border-radius: 16px;
+	box-shadow: 0 20px 20px 0 $shadowColor;
+	@extend %row;
+	@extend %align-center;
+	position: relative;
+	width: 66vw;
+	height: 120px;
+	padding: 1.6rem 3.2rem;
+	z-index: 20;
+
+	@include tablet {
+		flex-direction: column;
+		padding: 1rem 1.4rem;
+	}
+
+	&__img-wrap {
+		position: relative;
+		width: $discSize;
+		z-index: 100;
+
+		&::after {
+			content: "";
+			display: block;
+			background-color: $bgColor;
+			height: $discInnerSize;
+			width: $discInnerSize;
+			position: absolute;
+			left: 50%;
+			bottom: 50%;
+			border-radius: 50%;
+			transform: translate(-50%, -200%);
+
+			@include tablet {
+				transform: translate(-90%, -70%);
+			}
+		}
+
+		&--img {
+			object-fit: cover;
+			height: $discSize;
+			width: $discSize;
+			border-radius: 50%;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+
+			animation: rotate 3s linear infinite;
+
+			animation-play-state: paused;
+
+			@include tablet {
+				// position: inherit;
+				height: 96px;
+				width: 96px;
+				bottom: -24px;
+			}
+		}
+	}
+
+	&.play &__img-wrap--img {
+		animation-play-state: running;
+	}
+
+	@keyframes rotate {
+		from {
+			transform: rotate(0deg);
+		}
+
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	&__controls {
+		position: absolute;
+		top: 64px;
+		@extend %row;
+		width: 110px;
+		z-index: 30;
+		justify-content: space-between;
+
+		@include tablet {
+			top: 35%;
+			// width: 90px;
+		}
+
+		&--action-btn {
+			padding: 0.6rem 0;
+			border: none;
+			color: $secondary;
+			background-color: transparent;
+			cursor: pointer;
+			margin: 0 0.6rem;
+			filter: brightness(50%);
+
+			&:hover {
+				transition: all ease 0.3s;
+				filter: brightness(100%);
+				transform: scale(1.2);
+			}
+
+			&:focus {
+				outline: 0;
+			}
+		}
+
+		&--action-btn__switch {
+			font-size: 2rem;
+			// color: $secondary;
+			filter: none;
+
+			&:hover {
+				color: $altColor;
+			}
+		}
+	}
+
+	&__details {
+		background-color: $popUpColor;
+		border-radius: 15px 15px 0 0;
+		position: absolute;
+		top: 0;
+		left: 20px;
+		width: calc(100% - 40px);
+		opacity: 0;
+		transform: translateY(0%);
+		padding: 10px 10px 10px 150px;
+		transition: transform 0.3s ease-in opacity 0.3s ease-in;
+
+		&--title {
+			margin: 0;
+		}
+	}
+
+	&__progress-section {
+		background: $secondary;
+		border-radius: 5px;
+		cursor: pointer;
+		margin: 10px 0;
+		height: 4px;
+		width: 0%;
+		transition: width 0.1s linear;
+
+		&--progress {
+			background-color: $bgColor;
+			border-radius: 5px;
+			height: 100%;
+		}
+	}
+}
+
+.music-wrapper.play .music-wrapper__details {
+	opacity: 1;
+	transform: translateY(-100%);
+
+	@include tablet {
+		padding-bottom: 54px;
+		padding-left: 20px;
+	}
+}
+
+// .music-wrapper.play .music-wrapper__img-wrap--img {
+// }
