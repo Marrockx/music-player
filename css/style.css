@@ -232,15 +232,18 @@ body {
   cursor: pointer;
   margin: 10px 0;
   height: 4px;
-  width: 0%;
-  -webkit-transition: width 0.1s linear;
-  transition: width 0.1s linear;
+  width: 100%;
+  -webkit-transition: width 0s ease;
+  transition: width 0s ease;
 }
 
 .music-wrapper__progress-section--progress {
   background-color: #270404;
   border-radius: 5px;
   height: 100%;
+  width: 0%;
+  -webkit-transition: width 0.1s linear;
+  transition: width 0.1s linear;
 }
 
 .music-wrapper.play .music-wrapper__details {

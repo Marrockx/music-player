@@ -59,14 +59,58 @@ function loadSong(song) {
 	songCover.src = `/images/${song.name}.jpg`;
 }
 
-function switchSong() {
+function playSong() {
 	musicWrapper.classList.add("play");
 	switchButton.querySelector("i.fas").classList.remove("fa-play");
 	switchButton.querySelector("i.fas").classList.add("fa-pause");
+
+	actualSong.play();
 }
 
 function pauseSong() {
 	musicWrapper.classList.remove("play");
+	switchButton.querySelector("i.fas").classList.remove("fa-pause");
+	switchButton.querySelector("i.fas").classList.add("fa-play");
+
+	actualSong.pause();
+}
+
+function prevSong() {
+	songIndex--;
+	if (songIndex < 0) {
+		songIndex = songs.length - 1;
+	}
+	loadSong(songs[songIndex]);
+	playSong();
+}
+
+function nextSong() {
+	songIndex++;
+	if (songIndex > songs.length - 1) {
+		songIndex = 0;
+	}
+	loadSong(songs[songIndex]);
+	playSong();
+}
+
+function updatePlayProgress(evt) {
+	// console.log(evt.srcElement.currentTime);
+	const { currentTime, duration } = evt.srcElement;
+	const progressPercent = (currentTime / duration) * 100;
+	// console.log(progressPercent);
+	playProgress.style.width = `${progressPercent}%`;
+	// also .currentSPot, .duration
+}
+
+function setCurrentProgress(evt) {
+	const progressWidth = this.clientWidth;
+
+	// console.log(progressWidth);
+	const clickX = evt.offsetX;
+	console.log(clickX);
+	const duration = actualSong.duration;
+
+	actualSong.currentTime = (clickX / progressWidth) * duration;
 }
 
 // Event Listeners to control UI  play, pause, previous, next
@@ -76,22 +120,18 @@ switchButton.addEventListener("click", () => {
 	if (isPlaying) {
 		pauseSong();
 	} else {
-		switchSong();
+		playSong();
 	}
 });
 
-prevButton.addEventListener("click", () => {
-	songIndex--;
-	if (songIndex < 0) {
-		songIndex = songs.length;
-	}
-	loadSong(songs[songIndex]);
-});
+// Events to change Song
 
-nextButton.addEventListener("click", () => {
-	songIndex++;
-	if (songIndex > songs.length) {
-		songIndex = 0;
-	}
-	loadSong(songs[songIndex]);
-});
+prevButton.addEventListener("click", prevSong);
+
+nextButton.addEventListener("click", nextSong);
+
+actualSong.addEventListener("timeupdate", updatePlayProgress);
+
+progressBar.addEventListener("click", setCurrentProgress);
+
+actualSong.addEventListener("ended", nextSong);
