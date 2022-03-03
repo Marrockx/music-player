@@ -15,6 +15,10 @@ $discInnerSize: 20px;
 	justify-content: center;
 }
 
+%space-around {
+	justify-content: space-around;
+}
+
 %column {
 	display: flex;
 	flex-direction: column;
@@ -37,13 +41,15 @@ body {
 	background-image: linear-gradient(0deg, $secondary 35%, $primary 86%);
 	@extend %align-center;
 	@extend %column;
-	@extend %justify-center;
+	// @extend %justify-center;
+	@extend %space-around;
 	height: 100vh;
+	overflow: hidden;
 }
 
 .header {
 	color: $bgColor;
-	margin-bottom: 12rem;
+	// margin-bottom: 12rem;
 
 	// @include tablet {
 	// 	padding-bottom: 4rem;

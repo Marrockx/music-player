@@ -9,9 +9,8 @@ body, .music-wrapper {
 }
 
 body {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 body {
@@ -46,11 +45,11 @@ body {
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(35%, #f09797), color-stop(86%, #f07154));
   background-image: linear-gradient(0deg, #f09797 35%, #f07154 86%);
   height: 100vh;
+  overflow: hidden;
 }
 
 .header {
   color: #270404;
-  margin-bottom: 12rem;
 }
 
 .music-wrapper {
