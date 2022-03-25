@@ -8,6 +8,7 @@ const actualSong = document.querySelector("#song");
 const progressBar = document.querySelector("#progress-bar");
 const playProgress = document.querySelector("#progress");
 const songCover = document.querySelector("#cover");
+const userMusic = document.querySelector("#user-music");
 
 // Song Titles
 const songs = [
@@ -57,6 +58,30 @@ function loadSong(song) {
 	songArtist.textContent = song.artist;
 	actualSong.src = `./music/${song.name}.mp3`;
 	songCover.src = `/images/${song.name}.jpg`;
+}
+
+function loadUploadSong(song) {
+	// load user's music to the interface & audio element 
+	songTitle.textContent = song.title;
+	songArtist.textContent = song.artist;
+	actualSong.src = song.url;
+	// work on cover image for song 
+	// songCover.src = `/images/${song.name}.jpg`;
+}
+
+function objectofUploadSong(file) {
+	// returns a song object containing name, title, artist, url
+	name = file['name'].split('.')[0];
+	title = file['name'].split('.')[0].toUpperCase();
+	// work on getting the real artist 
+	artist = 'Artist';
+	url = URL.createObjectURL(file)
+	return {
+		name: name,
+		title: title,
+		artist: artist,
+		url: url,
+	}
 }
 
 function playSong() {
@@ -135,3 +160,8 @@ actualSong.addEventListener("timeupdate", updatePlayProgress);
 progressBar.addEventListener("click", setCurrentProgress);
 
 actualSong.addEventListener("ended", nextSong);
+
+userMusic.addEventListener('change', function () {
+	loadUploadSong(objectofUploadSong(userMusic.files[0]));
+	playSong();
+});
